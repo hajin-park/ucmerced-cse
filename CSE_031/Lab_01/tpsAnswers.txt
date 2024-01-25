@@ -1,0 +1,88 @@
+TPS 1
+
+1. Record your TPS partners’ names.
+- Aram Shkhyan
+- Marcelo Rodriquez
+- Hajin Park
+
+2. Independently search the internet for 3 online tutorials on how to use Linux/Mac/PowerShell terminal.
+- https://www.freecodecamp.org/news/the-linux-commands-handbook/
+- https://learn.microsoft.com/en-us/training/modules/introduction-to-powershell/
+- https://www.geeksforgeeks.org/linux-tutorial/
+
+3. Share your tutorials with your TPS partners.
+Marcelo's tutorials
+- https://ubuntu.com/tutorials/command-line-for-beginners#1-overview
+- https://maker.pro/linux/tutorial/basic-linux-commands-for-beginners
+- https://opensource.com/article/21/8/linux-terminal
+
+Aram's tutorials
+- https://www.youtube.com/watch?v=YHFzr-akOas
+- https://www.youtube.com/watch?v=dQ8JgDUS8DA
+- https://www.youtube.com/watch?v=FTTr2bjI2UM
+
+4. Bookmark your results in the browser of your computer.
+- Done
+
+TPS 2
+
+1. How can you open a terminal from your Linux/Mac/Windows computer?
+I am using Windows 11 on my laptop and Windows 10 on my personal computer. For both devices I can open a terminal
+simply by opening either the "Terminal", "Command Prompt", or "Powershell" programs.
+
+a. Can you open more than 1 terminal at the same time?
+Yes, I can have multiple terminals open and running simultaneously.
+
+b. Why do you think you want to open more than 1 terminal at the same time?
+I may want more than 1 terminal open at the same time because having multiple terminals open allows me to have access
+to multiple directories on my device at the same time which can say a lot of time switching between directories especially
+when while working on complicated projects. I may also want certain terminals running tasks that take a while to process
+so having multiple terminals frees me from any bottlenecks in productivity that may cause.
+
+2. In the terminal, how can you tell what are contents inside the current directory (i.e., what is the command)?
+"ls"
+
+3. From your current directory, how can you navigate to Desktop directory?
+"cd ~"
+"cd Desktop"
+
+4. While you are in Desktop, create a new directory called CSE31. How do you do this?
+"mkdir CSE31"
+
+TPS 3
+
+1. Independently find 2 online references on how to use GCC in a Linux/Mac/PowerShell terminal.
+- https://code.visualstudio.com/docs/cpp/config-mingw
+- https://www3.ntu.edu.sg/home/ehchua/programming/cpp/gcc_make.html
+
+2. Share what you have found with your partners and save your results in the bookmark of your browser.
+Marcelo's tutorials
+- https://www.educba.com/gcc-command-in-linux/
+- https://www.geeksforgeeks.org/gcc-command-in-linux-with-examples/
+
+Aram's tutorials
+- https://support.apple.com/guide/terminal/welcome/mac
+- https://m.youtube.com/watch?v=aKRYQsKR46I
+
+You will refer to these references to answer the following questions.
+3. What command do you type in the terminal to compile your main.c?
+"gcc main.c"
+
+4. How do you know if your program has compiled successfully?
+For Windows a new "a.exe" program should be generated.
+
+5. What does the –c flag do in gcc?
+Using -c compiles the c file into an .o object file.
+
+6. What does the –g flag do in gcc?
+Using -g generates additional symbolic debugging information for use with the gdb debugger. 
+
+7. How do you change the executable name from main to cselab1?
+Use the "-o" flag and specify the name "cselab1.exe" while compiling main.c
+
+8. What happens when you compile your code by typing gcc main.c only?
+The resulting executable program will be called "a".
+
+9. Now, let us run the program you have just compiled. What command do you use?
+"a" (Windows)
+"./a" (Linux)

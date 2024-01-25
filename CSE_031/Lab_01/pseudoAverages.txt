@@ -1,0 +1,41 @@
+init input number variable
+init number of user inputs variable
+init even average variable
+init odd average variable
+init number of even digit inputs variable
+init number of odd digit inputs variable
+init input digits sum variable
+
+while user input is not 0 {
+    ask user for integer input
+    if user input is 0
+        break out of loop
+
+    int copy of user input
+    while copy is > 0 {
+        digitSum += inputNumCopy modulo 10
+        copy /= 10
+    }
+
+    if digitSum is even {
+        evenAverage += digitSum
+        eventCount++
+    } else {
+        oddAverage += digitSum
+        oddCount++
+    }
+
+    set digitSum to 0
+    inputCount++
+}
+
+if inputCount is 1 {
+    print "There is no average to compute."
+} else {
+    if evenAvg is not 0 {
+        print evenAvg/evenCount
+    }
+    if oddAvg is not 0 {
+        print oddAvg/oddCount
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "*.ahk": "ahk",
+        "system_error": "c",
+        "type_traits": "c",
+        "xlocnum": "c",
+        "xtr1common": "c"
+    }
+}
