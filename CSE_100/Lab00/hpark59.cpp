@@ -6,7 +6,6 @@ using namespace std;
 
 
 int main(int argc,char **argv) {
-
   int* Sequence;
   int arraySize = 1;
 
@@ -34,8 +33,6 @@ int main(int argc,char **argv) {
   // output
   cout << max_num << ";" << min_num;
 
-
   // Free allocated space
   delete[] Sequence;
-
 }
