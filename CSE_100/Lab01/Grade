@@ -6,7 +6,7 @@ if [ -f result ];
 fi
 
 
-for i in `seq 1 5`; do
+for i in `seq 1 7`; do
     
     if [ -f tempresult1 ];
     then
