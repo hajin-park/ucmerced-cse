@@ -1,0 +1,38 @@
+Assignment 1
+
+1. What line caused the segmentation fault?
+Line 25 caused the segmentation fault.
+"scanf("%d", input);"
+
+2. How do you fix the line so it works properly?
+I fixed this line by adding an ampersand infront of input.
+"scanf("%d", &input);"
+
+3. What is the bug here?
+The bug here is that the sum variable was not being updated outside of the function so we could not print out the
+final result properly.
+
+4. How do you fix it?
+I fixed this by passing the sum variable by reference to "read_values()" and dereferenced sum inside the function
+to properly update its value globally.
+
+Assignment 2
+
+1. Run the program with the following input: “HELLO!” for str1 and “hello!” for str2. Is the output 
+expected?
+The output of the program is not the one that was expected. Rather than printing out
+"HELLO!hello!" as intended, the program prints "HELLO!hello!" followed by four random symbols.
+The four random symbols change each time the program is executed.
+
+2. Do not stop the program, enter “HI!” for str1 and “hi!” for str2. Is the output expected? What is 
+the bug here? Try to fix the program so it will print the output correctly.
+The output is not as expected again. Running the program a second time with new strings
+did not clear out the previous string. The program printed out "HI!hi!HELLO!DY┬☺" instead
+of "HI!hi!" as was intended. To fix the program I placed the "\0" terminator at s1[s1len+s2len]
+in order to stop the string in the correct location.
+
+3. Do not stop the program, enter “Hello! How are you?” for str1 and “I am fine, thank 
+you!” for str2. Is the output expected?  Why do you think this happens?
+The output does not print as expected. The output prints out " thank you!I am fine, thank you!"
+rather than the intended output. I think this happens because we set the length of each string variable
+beforehand at length 10 which restricts how many characters we can place inside of the strings.

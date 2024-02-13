@@ -1,0 +1,94 @@
+Activity 1
+
+1. Record your TPS partners’ names.
+- Marcelo Rodriguez
+- Aram Shkhyan
+
+2. Independently search the internet for 3 online tutorials on how to setup and use GDB (or LLDB) in 
+your system.
+- https://stackoverflow.com/questions/170097/adding-gdb-to-mingw
+- https://sourceware.org/gdb/
+- https://superuser.com/questions/1747118/how-to-download-gdb-from-mingw-correctly
+
+3. Share your tutorials with your TPS partners.
+- Marcelo
+    - https://developer.apple.com/library/archive/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-terminal-workflow-tutorial.html
+    - https://code.visualstudio.com/docs/cpp/lldb-mi
+    - https://eecs280staff.github.io/tutorials/setup_macos.html
+- Aram
+    - https://lldb.llvm.org/use/tutorial.html
+    - https://developer.apple.com/library/archive/documentation/General/Conceptual/lldb-guide/chapters/C1-Introduction-to-Debugging.html
+    - https://llvm.org/devmtg/2016-03/Tutorials/LLDB-tutorial.pdf
+
+4. Bookmark your results in the browser of your computer.
+Done
+
+Activity 2
+
+1. How do you compile your punishment.c so that you can debug it using GDB (or LLDB for MAC)? 
+Try it with your code and set the name of the executable to punish. 
+Add the -g flag when compiling the c file so that the compiler can collect debugging information.
+"gcc -g punishment.c"
+
+2. Once punishment.c is compiled, how do you load it in GDB (or LLDB for MAC)? Try it with your 
+program.
+Open the gdb terminal. Then use the gdb command followed by the executable name.
+"gdb a.exe"
+
+3. Once punish is loaded, how do you run it in GDB (or LLDB for MAC)? Try to run your punish. 
+"run [args]"
+
+4. What are breakpoints? How do you set a breakpoint at a certain line of your program? Try to set a 
+breakpoint in punishment.c where the for loop begins.
+A breakpoint is a marker telling the compiler to stop at a specified line before continuing 
+the program. Set a breakpoint with the "break [line]" command.
+
+5. Now run the program again. It should stop at the breakpoint you set in Q4. From here, how do you run 
+the program line by line? Try to run the next 3 lines with your program. 
+Run the program line-by-line by using the "step" or "s" command.
+
+6. While you are still running punish line by line, how can you see the value of a variable? Pick 3 variables 
+in your program and display them in the terminal one by one. 
+We can display the value of variables by using the "print [variable]" or "p [variable]" command.
+
+7. Now that you are tired of running line by line, how do you let the program finish its run? Try to finish 
+running your punish.
+Use the "continue" or "c" command to run the program until the next breakpoint.
+
+8. How do you exit from GDB (or LLDB for MAC)?
+"quit"
+
+Activity 3
+
+1. How many variables were declared in the first line of main()? How many of them are pointers (and 
+what are they)?
+Four variables were declared; "x", "y", "px", and "py". Of these, "px" and "py" are pointers.
+
+2. What will be the values of x, y, and arr[0] if you run the program? Validate your answer by running 
+the program. Why do you think it happens that way? You will need to insert printf statements to 
+display those values.
+The values of x, y and arr[0] will have random values because they were not initialized with a default value.
+
+3. How do you prevent x, y, and the content of arr from having unexpected values? Try to fix them in 
+the program.
+We can prevent x, y, and arr from having random values by initializing them with specified values.
+
+4. The moment you have declared a variable, the program will allocate a memory location for it. Each 
+memory location has an address. Now insert printf statements to display the addresses of x and y. 
+Done
+
+5. Now insert code so that px points to x and py points to y. Print out the values and addresses of those 
+pointers using only the pointer variables (yes, pointers have addresses too!). You should see that the value of 
+px is equal to the address of x, and the same is true for py and y. 
+Done
+
+6. As we have learned in lectures, an array name can be used as a pointer to access the content of the array. 
+Write a loop to output the contents of arr by using arr as a pointer (do not use [] in your loop). 
+Done
+
+7. Are array names really the same as pointers? Let us find out! An array name points to the first element 
+of an array, so arr should point to the address of arr[0]. Insert code to verify this. 
+Done
+
+8. Now print out the address of arr. Does the result make sense? Why?
+Yes. The address the is printed out from &arr is the same as &arr[0] which are essentially equivalent.
