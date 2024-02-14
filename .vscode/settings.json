@@ -4,6 +4,11 @@
         "system_error": "c",
         "type_traits": "c",
         "xlocnum": "c",
-        "xtr1common": "c"
+        "xtr1common": "c",
+        "initializer_list": "c",
+        "random": "c",
+        "vector": "c",
+        "xstring": "c",
+        "xutility": "c"
     }
 }
