@@ -1,0 +1,57 @@
+Activity 1
+
+1. Name the 3 pools for memory and what kind of variables will be stored in each pool.
+- Static: Global variables
+- Stack: Local Variables
+- Heap: Dynamically allocated memory
+
+2. Open mem.c with your favorite text editor and discuss the following questions with your partner:
+    a. How many variables are declared?
+    3; num, ptr, and handle.
+
+    b. How many of them are pointers? What type of data does each pointer point to?
+    2 of them are pointers. the "ptr" variable is a pointer to an int value and "handle" is a pointer pointing to another pointer containing an int value.
+
+    c. Which pool of memory are these variables stored in?
+    The "num" int variable is stored in the stack while the "ptr" and "handle" pointers are stored in the heap.
+
+    d. Which pool of memory will the pointer ptr point to in line 12.
+    The "ptr" pointer will point to the heap.
+
+3. Using a piece of paper (or a drawing app), draw the 3 pools of memory and indicate the locations (in 
+which pool?) of the variables in mem.c using boxes (like what we did in lecture). Label the boxes with 
+variable names, their content, and their addresses. You will need to insert extra code to obtain the 
+addresses of these variables.
+4. In the same drawing, use arrows to connect each pointer to its destination.
+-----------------------------------------------------------------------------
+num = 14; ----------------------------------> HEAP
+
+int num;
+int ptr; -----------------------------------> STATIC
+int **handle;
+
+ptr = (int)malloc(2 * sizeof(int));
+ptr = num;
+handle = (int **)malloc(1 sizeof(int *)); --> HEAP
+handle = ptr;
+-----------------------------------------------------------------------------
+
+Activity 2
+
+1. Open NodeStruct.c and discuss what this program does.
+Theis program creates a struct called "Node" which acts as a node object containing both an integer and float value with a one way pointer to another node. In the main function a head node object is allocated in memory using malloc and is given an integer and float value.
+
+2. Insert extra code to print out the value of head, addresses of head, iValue, fValue, and next pointed 
+by head.
+Value of iValue: 5
+Value of fValue: 3.140000
+Address head: 0000019C5A25DF70
+Address of iValue: 0000019C5A25DF70
+Address of fValue: 0000019C5A25DF74
+Address of next: 003A0043003B005C
+
+3. Based on the addresses of the members of Node structure, what do you observe about how structures 
+are stored in memory? What is the relationship between the pointer (head) and its destination (the 
+Node structure)?
+I notice that the addresses of the members of the Node structure are stored sequentially in memory. This implies that structure are initiallized and stored together in memory.
+The address of "head" and head's "iValue" share the same value. This shows that the "head" pointer and its destination is pointing to its first attribute, which in this case is "iValue".

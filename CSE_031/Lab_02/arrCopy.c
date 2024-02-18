@@ -19,7 +19,7 @@ char *str3 = "Contents of new array containing odd elements from original: ";
 void printArr(int *a, int size, char *prompt){
     printf("%s", prompt);
 
-    if (size == 0){
+    if (size == 0) {
         printf("empty");
     }
 
