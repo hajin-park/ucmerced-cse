@@ -10,5 +10,6 @@
         "vector": "c",
         "xstring": "c",
         "xutility": "c"
-    }
+    },
+    "workbench.editor.showTabs": "multiple"
 }
