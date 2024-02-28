@@ -14,7 +14,6 @@
 	*handle = ptr;
 
 	// Insert code here
-
 	return 0;
 } 
 
