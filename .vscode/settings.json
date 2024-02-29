@@ -9,7 +9,8 @@
         "random": "c",
         "vector": "c",
         "xstring": "c",
-        "xutility": "c"
+        "xutility": "c",
+        "stdio.h": "c"
     },
     "workbench.editor.showTabs": "multiple"
 }
