@@ -1,5 +1,4 @@
 # Computer Science and Engineering Curriculum at University of California, Merced
-===
 
 ## [CSE 022: Introduction to Programming](https://catalog.ucmerced.edu/preview_course_nopop.php?catoid=20&coid=50100)
 #### *Fall 2022*
