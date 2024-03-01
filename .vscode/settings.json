@@ -11,7 +11,8 @@
         "xstring": "c",
         "xutility": "c",
         "stdio.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "cmath": "c"
     },
     "workbench.editor.showTabs": "multiple"
 }
