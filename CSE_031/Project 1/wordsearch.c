@@ -2,16 +2,27 @@
 #include <stdlib.h>
 #include <string.h>
 
+// =============================================== STRATEGY ===============================================
+// 1. Create an array 'firstOccurrences' of Position structs for every possible board position.
+// 2. Append the board position of each first letter occurrence of the word to 'firstOccurrences'.
+// 3. Create a 2D array 'results', each row containing the path of the word starting from the first letter.
+// 4. Recursively search surrounding positions of a letter starting from each first letter occurence,
+//    appending the position of the next letter of 'word' found to the corresponding row in 'results'.
+// 5. Print out each path in 'results' if the path is complete (Positions with -1 signal incomplete paths).
+// ========================================================================================================
+
 // Declarations of the two functions you will implement
 // Feel free to declare any helper functions or global variables
-void printPuzzle(char** arr);
-void searchPuzzle(char** arr, char* word);
-void printPath();
-int bSize;
 typedef struct {
     int row;
     int col;
 } Position;
+
+void printPuzzle(char** arr);
+void searchPuzzle(char** arr, char* word);
+void printFinalPuzzle(int** arr);
+void scanPosition(char **block, Position **results, char *word, Position pos, int resultIndex, int wordIndex);
+int bSize;
 
 // Main function, DO NOT MODIFY 	
 int main(int argc, char **argv) {
@@ -66,19 +77,50 @@ void printPuzzle(char** arr) {
     // Your implementation here...
     for (int i = 0; i < bSize; i++) {
         for (int j = 0; j < bSize-1; j++) {
-            printf("%c ", arr[i][j]);
+            printf("%c ", *(*(arr+i)+j));
         }
-        printf("%c\n", arr[i][bSize-1]);
+        printf("%c\n", *(*(arr+i)+bSize-1));
     }
     printf("\n");
 }
 
-void printPath() {
-
+void printFinalPuzzle(int** arr) {
+    printf("fgdfgf");
+    for (int i = 0; i < bSize; i++) {
+        for (int j = 0; j < bSize-1; j++) {
+            printf("%-6d", *(*(arr+i)+j));
+        }
+        printf("%d\n", *(*(arr+i)+bSize-1));
+    }
 }
 
-void scanPosition(Position **results, char *word, Position pos, int resultIndex, int wordIndex) {
+char toUpper(char c) {
+    if (c >= 'a' && c <= 'z') {
+        return c-32;
+    }
+    return c;
+}
 
+void scanPosition(char **block, Position **results, char *word, Position pos, int resultIndex, int wordIndex) {
+    if (wordIndex < strlen(word)) {
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j < 2; j++) {
+                // Guard clauses
+                if (i == 0 && j == 0) {
+                    continue;
+                } else if (pos.row+i < 0 || pos.row+i >= bSize || pos.col+j < 0 || pos.col+j >= bSize) {
+                    continue;
+                } else if (toUpper(*(*(block+pos.row+i)+pos.col+j)) != toUpper(*(word+wordIndex))) {
+                    continue;
+                }
+
+                Position foundPosition = (Position) {pos.row+i, pos.col+j};
+                *(*(results+resultIndex)+wordIndex) = foundPosition;
+                scanPosition(block, results, word, foundPosition, resultIndex, wordIndex+1);
+            } 
+        }
+    }
+    // Terminates if the path is complete or the next letter is not found.
 }
 
 void searchPuzzle(char** arr, char* word) {
@@ -87,34 +129,67 @@ void searchPuzzle(char** arr, char* word) {
     // as shown in the sample runs. If not found, it will print a 
     // different message as shown in the sample runs.
     // Your implementation here...
-
-    // Create an array of Position structs for every possible board position
+    // Allocate memory for arrays to store first occurrences and path results
+    int numFirstOccur = 0;
+    int completedPaths = 0;
+    int **finalBlock = (int**) malloc(bSize * sizeof(int*));
     Position *firstOccurrences = (Position*) malloc((bSize*bSize)*(sizeof(Position)));
+    Position **results = (Position**) malloc(numFirstOccur*(sizeof(Position*)));
 
     // Find all occurrences of the first letter of the word
-    int numFirstOccur = 0;
     for (int i = 0; i < bSize; i++) {
         for (int j = 0; j < bSize; j++) {
-            if (arr[i][j] == word[0]) {
+            if (toUpper(*(*(arr+i)+j)) == toUpper(*word)) {
                 *(firstOccurrences+numFirstOccur) = (Position) {i, j};
                 numFirstOccur++;
             }
         }
     }
 
-    // Create an array of Position paths for each first occurrence
-    Position **results = (Position**) malloc((numFirstOccur)*(sizeof(Position*)));
-
-    // Set each Position path to the length of the word
+    // Initialize each Position struct in the paths to the length of the word with -1 values
     for (int i = 0; i < numFirstOccur; i++) {
         *(results+i) = (Position*) malloc((strlen(word))*(sizeof(Position)));
-        for (int j = 0; i < strlen(word); i++) {
+        for (int j = 1; j < strlen(word); j++) {
             *(*(results+i)+j) = (Position) {-1, -1};
+        }
+        *(*(results+i)) = *(firstOccurrences+i); // Set the first position of each path to the first occurrence
+    }
+
+    // Initialize the finalBlock board values to 0
+    printFinalPuzzle(finalBlock);
+
+    for (int i = 0; i < bSize; i++) {
+        *(finalBlock+i) = (int*) malloc(bSize * (sizeof(int)));
+        for (int j = 0; j < bSize; j++) {
+            *(*(finalBlock+i)+j) = 0;
         }
     }
 
-    // For each first occurrence, check if the word is in the puzzle
+    printFinalPuzzle(finalBlock);
+
+    // For each first letter occurrence check if the word is in the puzzle
     for (int i = 0; i < numFirstOccur; i++) {
-        scanPosition(results, word, *(firstOccurrences+i), 0, 0);
+        scanPosition(arr, results, word, *(firstOccurrences+i), i, 1);
+    }
+
+    // Fill in finalBlock with the results
+    for (int i = 0; i < numFirstOccur; i++) {
+        if ((*(results+i)+strlen(word)-1)->row == -1) {
+            continue;
+        }
+
+        for (int j = 0; j < strlen(word); j++) {
+            int *currentPos = *(finalBlock+(*(results+i)+j)->row)+(*(results+i)+j)->col;
+            *currentPos = ((*currentPos)*10) + (i+1);
+        }
+
+        completedPaths++;
+    }
+
+    if (completedPaths) {
+        printf("Word found!\nPrinting the search path:\n");
+        printFinalPuzzle(finalBlock);
+    } else {
+        printf("Word not found!");
     }
 }
