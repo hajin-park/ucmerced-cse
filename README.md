@@ -30,6 +30,8 @@ Exposes students to the underlying structure of machines. Starting from C progra
 
 ## [CSE 100: Algorithm Design and Analysis](https://catalog.ucmerced.edu/preview_course_nopop.php?catoid=16&coid=39183)
 #### *Spring 2024*
+
 Introduction to the design and analysis of computer algorithms. Topics will include concepts of algorithm complexity, and various algorithmic design patterns like divide and conquer, dynamic programming and greedy algorithms. Also covers major algorithms and data structures for searching and sorting, graphs and some optimization techniques.
+
 ---
 
