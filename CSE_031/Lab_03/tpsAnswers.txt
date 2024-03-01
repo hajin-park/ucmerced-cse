@@ -10,7 +10,8 @@ Activity 1
     - 3; num, ptr, and handle.
 
     b. How many of them are pointers? What type of data does each pointer point to?
-    - 2 of them are pointers. the "ptr" variable is a pointer to an int value and "handle" is a pointer pointing to another pointer containing an int value.
+    - 2 of them are pointers. the "ptr" variable is a pointer to an int value and "handle" is a pointer
+    pointing to another pointer containing an int value.
 
     c. Which pool of memory are these variables stored in?
     - The "num" int variable is stored in the stack while the "ptr" and "handle" pointers are stored in the heap.
@@ -24,22 +25,28 @@ variable names, their content, and their addresses. You will need to insert extr
 addresses of these variables.
 4. In the same drawing, use arrows to connect each pointer to its destination.
 -----------------------------------------------------------------------------
-num = 14; ----------------------------------> HEAP
+ int main() {
+	int num; -------------------------------------> STACK MEMORY
+	int *ptr; ------------------------------------> STACK MEMORY
+	int **handle; --------------------------------> STACK MEMORY
 
-int num;
-int ptr; -----------------------------------> STATIC
-int **handle;
+	num = 14;
+	ptr = (int *) malloc(2 * sizeof(int)); -------> HEAP MEMORY
+	*ptr = num; ----------------------------------> HEAP MEMORY
+	handle = (int **) malloc(1 * sizeof(int *)); -> HEAP MEMORY
+	*handle = ptr; -------------------------------> HEAP MEMORY
 
-ptr = (int)malloc(2 * sizeof(int));
-ptr = num;
-handle = (int **)malloc(1 sizeof(int *)); --> HEAP
-handle = ptr;
+	// Insert code here
+	return 0;
+} 
 -----------------------------------------------------------------------------
 
 Activity 2
 
 1. Open NodeStruct.c and discuss what this program does.
-- This program creates a struct called "Node" which acts as a node object containing both an integer and float value with a one way pointer to another node. In the main function a head node object is allocated in memory using malloc and is given an integer and float value.
+- This program creates a struct called "Node" which acts as a node object containing both an integer and
+float value with a one way pointer to another node. In the main function a head node object is allocated
+in memory using malloc and is given an integer and float value.
 
 2. Insert extra code to print out the value of head, addresses of head, iValue, fValue, and next pointed 
 by head.
@@ -53,4 +60,7 @@ by head.
 3. Based on the addresses of the members of Node structure, what do you observe about how structures 
 are stored in memory? What is the relationship between the pointer (head) and its destination (the 
 Node structure)?
-- I notice that the addresses of the members of the Node structure are stored sequentially in memory. This implies that structure are initiallized and stored together in memory. The address of "head" and head's "iValue" share the same value. This shows that the "head" pointer and its destination is pointing to its first attribute, which in this case is "iValue".
+- I notice that the addresses of the members of the Node structure are stored sequentially in memory.
+This implies that structure are initiallized and stored together in memory. The address of "head" and
+head's "iValue" share the same value. This shows that the "head" pointer and its destination is pointing
+to its first attribute, which in this case is "iValue".

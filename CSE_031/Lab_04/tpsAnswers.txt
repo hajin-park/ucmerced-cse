@@ -1,0 +1,120 @@
+TPS 1
+
+1. Open MemCast.c, compile and run the program. What do you expect the program to print? (%x in 
+printf allows an integer to be printed in Hex format).
+-
+I expect this program to print "2" into the terminal. Even though the output is interpreted as a hex,
+2 in binary is also 2 in hexadecimal.
+
+2. Before changing the code, what do you expect the program to print if you print four_ints[0] 
+again at the end of the program?
+-
+At the end of the program, "four_ints[0]" contains the binary "01000100 01000011 01000010 01000001". If "four_ints[0]" were to be
+printed out again as a hexademical number at the end of a program, I would expect the output to
+be "44434241" which is the same binary but in hex format.
+
+3. Insert a print statement to output four_ints[0] at the end of the program in hex and verify your 
+answer from (2).
+-
+The output is "44434241" which is what I predicted.
+
+4. Now add a print statement to the program so it will print out four_ints[1] in hex. What does it 
+print? Are you surprised (or lost) by the results?
+-
+I think that the output of "four_ints[1]" in hex will still be 2. This is indeed the case. This does not surprise me because I understand
+that the character pointer used in the program will only be able to travel across a single int memory space with 4 iterations.
+
+5. Let us study the code carefully and investigate what happened. No, the memory did not go crazy.  
+a. How many array(s) were allocated in this program?
+-
+One array was allocated in this program at line 5 with the declaration "int four_ints[4];"
+
+b. Are four_ints and four_c pointing to the same location?
+-
+Yes, four_ints and four_c point point to the beginning of the memory space holding the space allocated for the int array.
+
+c. Verify your answer of (b) by printing out the values of four_ints and four_c.
+-
+When I ran my program once I confirmed that both pointers hold the same value of "0000005C36DFF7E0".
+
+6. Write a loop to print out the addresses and values (in Hex) of all the elements of four_ints. What is 
+the difference in addresses between two consecutive elements? Discuss what this difference means.
+-
+The four loop shows each memory address incrememted by a value of 4. This difference shows that each array element takes up
+4 memory locations, each 1 byte in size. This makes sense since we specified the type of the array to be of type "int" which,
+in this case, is 4 bytes each.
+
+7. Use a piece of paper to draw the layout of the array horizontally so that the smallest address begins 
+from the RIGHT-hand-side. Indicate the address and value of each element based on the results of 
+(6). You can draw it digitally.
+-
+TPS1_7.png
+
+8. Now, write a loop to print out the same information for four_c as you did in (6). What is the 
+difference in addresses between two consecutive elements? Discuss what this difference means.
+-
+This time the difference in addresses is only 1. This accurately reflects four_c's char datatype which is only 1 byte in size.
+
+9. Use the same piece of paper (or file) from (7) to draw a similar structure for four_c.
+-
+TPS1_7.png
+
+10. By comparing the layout of the array pointed by the two pointers, what do you observe in terms of how 
+C accesses memory when the index of an array is incremented?
+-
+I observe that C uses simple pointer arithmetic to increment the pointer value. The memory address increases by the size of the
+array datatype in terms of bytes.
+
+TPS 2
+
+1. Open Array2D.c. This program will create a n x n array of int. Explain what line #8 does.
+-
+Line #8 dynamically allocates an array made up of 5 elements (since n = 5) where each element is set to be the size of an int pointer.
+The address of the first element is assigned to the "arr" double pointer variable.
+
+2. Since every array must be allocated in the memory before it can be used, we need to allocate the rows
+one by one. To do this, we need to be able to access the pointers from the first array (pointed by arr). 
+Assuming i is the index of that array, how do we access the ith value of the array?
+-
+We can access the ith value of the array simply by using "arr[i]" in index notation or "*(arr+i)" in pointer notation.
+
+3. Without using array notations ([]), insert code to complete allocating all the rows and initialize all 
+contents to be 0. Your code should work with different values for n. Hint: if j is the index of each 
+row, how do you access arr[i][j] in pointer notation?
+-
+DONE
+
+4. To verify whether you have created your array correctly, we need a function to print out the array. The 
+function printArray has been declared. It takes in both the array to be printed and size of array. Why 
+do we need to pass the size as an argument?
+-
+Passing the size of the array as an argument is merely a convienent thing to do, we could manually calculate the size within the
+function using sizeof. We know that the array is a square matrix so the rows and columns have the same size.
+
+5. Complete printArray so it prints out the content and layout of an array correctly.
+-
+DONE
+[ 0 0 0 0 0 ]
+[ 0 0 0 0 0 ]
+[ 0 0 0 0 0 ]
+[ 0 0 0 0 0 ]
+[ 0 0 0 0 0 ]
+
+6. Now, let us modify the content of the array. Insert code to make the array into a diagonal matrix that 
+looks like the following (again, do not limit the size to 5): 
+1 0 0 0 0 
+0 2 0 0 0 
+0 0 3 0 0 
+0 0 0 4 0 
+0 0 0 0 5 
+-
+DONE
+ 
+7. Call printArray to print out your new array and verify result.
+-
+DONE
+[ 1 0 0 0 0 ]
+[ 0 2 0 0 0 ]
+[ 0 0 3 0 0 ]
+[ 0 0 0 4 0 ]
+[ 0 0 0 0 5 ]

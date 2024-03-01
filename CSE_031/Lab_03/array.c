@@ -13,19 +13,27 @@ int* bubbleSort(int arr[], int n) {
 
     // Sorting using array notations
 	// Comment this when implementing pointer version.
-    for (i = 0; i < n - 1; i++) {
-        for(j = 0; j < n - 1; j++) {
-            if(s_arr[j] > s_arr[j + 1]) {
-                temp = s_arr[j + 1];
-                s_arr[j + 1] = s_arr[j];
-                s_arr[j] = temp;
-            }
-        }
-    }
+    // for (i = 0; i < n - 1; i++) {
+    //     for(j = 0; j < n - 1; j++) {
+    //         if(s_arr[j] > s_arr[j + 1]) {
+    //             temp = s_arr[j + 1];
+    //             s_arr[j + 1] = s_arr[j];
+    //             s_arr[j] = temp;
+    //         }
+    //     }
+    // }
 
     // Sorting using pointer notations. i.e. you cannot use "[]"!
     // Your code goes here...
-
+    for (i = 0; i < n - 1; i++) {
+        for(j = 0; j < n - 1; j++) {
+            if(*(s_arr+j) > *(s_arr+j+1)) {
+                temp = *(s_arr+j+1);
+                *(s_arr+j+1) = *(s_arr+j);
+                *(s_arr+j) = temp;
+            }
+        }
+    }
 
 
     return s_arr;
@@ -44,9 +52,20 @@ int bSearch(int *arr, int a, int b, int key) {
     // Binary search function. arr is the array, key is the value to search for, a and b are the boundaries of arr to be searched within.
     // You must use pointer notations. i.e. no "[]"
     // Your code goes here:
+    int mid = (a+b)/2;
 
-
-	return 0; // Modify this to return an appropriate value!
+    // Guard clause
+    if (a > b) {
+        return -1;
+    }
+    
+    if (*(arr+mid) == key) {
+        return mid;
+    } else if (*(arr+mid) > key) {
+        return bSearch(arr, a, mid-1, key);
+    } else {
+        return bSearch(arr, mid+1, b, key);
+    }
 }
 
 int main() {
