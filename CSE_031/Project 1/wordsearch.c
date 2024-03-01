@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 // =============================================== STRATEGY ===============================================
 // 1. Create an array 'firstOccurrences' of Position structs for every possible board position.
@@ -85,7 +86,6 @@ void printPuzzle(char** arr) {
 }
 
 void printFinalPuzzle(int** arr) {
-    printf("fgdfgf");
     for (int i = 0; i < bSize; i++) {
         for (int j = 0; j < bSize-1; j++) {
             printf("%-6d", *(*(arr+i)+j));
@@ -156,16 +156,12 @@ void searchPuzzle(char** arr, char* word) {
     }
 
     // Initialize the finalBlock board values to 0
-    printFinalPuzzle(finalBlock);
-
     for (int i = 0; i < bSize; i++) {
         *(finalBlock+i) = (int*) malloc(bSize * (sizeof(int)));
         for (int j = 0; j < bSize; j++) {
             *(*(finalBlock+i)+j) = 0;
         }
     }
-
-    printFinalPuzzle(finalBlock);
 
     // For each first letter occurrence check if the word is in the puzzle
     for (int i = 0; i < numFirstOccur; i++) {
@@ -174,13 +170,15 @@ void searchPuzzle(char** arr, char* word) {
 
     // Fill in finalBlock with the results
     for (int i = 0; i < numFirstOccur; i++) {
+        // Skip incomplete paths
         if ((*(results+i)+strlen(word)-1)->row == -1) {
             continue;
         }
 
+        // Fill in positions with the path number, concatenate values if the position is already filled
         for (int j = 0; j < strlen(word); j++) {
             int *currentPos = *(finalBlock+(*(results+i)+j)->row)+(*(results+i)+j)->col;
-            *currentPos = ((*currentPos)*10) + (i+1);
+            *currentPos = *currentPos ? (j+1) * pow(10, (int)log10(*currentPos) + 1) + *currentPos : (j+1);
         }
 
         completedPaths++;
