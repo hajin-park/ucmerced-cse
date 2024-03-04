@@ -166,6 +166,9 @@ void searchPuzzle(char** arr, char* word) {
         scanPosition(arr, results, word, *(firstOccurrences+i), i, 1);
     }
 
+    // Done with original input block array and firstOccurrences array
+    free(arr);
+
     // Fill in finalBlock with the results
     for (int i = 0; i < numFirstOccur; i++) {
         // Skip incomplete paths
@@ -181,6 +184,10 @@ void searchPuzzle(char** arr, char* word) {
 
         numPaths++;
     }
+
+    // Done with input word and results array
+    free(word);
+    free(results);
 
     if (numPaths) {
         printf("Word found!\nPrinting the search path:\n");
