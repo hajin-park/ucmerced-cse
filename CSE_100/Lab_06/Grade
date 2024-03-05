@@ -1,0 +1,42 @@
+#!/bin/bash
+
+if [ -f result ];
+  then
+  rm result
+fi
+j=0
+
+START_TIME=$SECONDS
+
+for i in `seq 1 5`; do
+    if [ -f tempresult1 ];
+    then
+      rm tempresult1
+    fi
+    ./a.exe < ./testfiles/t$i > tempresult1
+    diff tempresult1 ./testfiles/o$i > tempcnt
+    if [ -s tempcnt ] ; then
+      echo "  !!Incorrect for $i th example."
+    else
+      echo "  Correct for $i th example."
+      j=`expr $j + 1`
+    fi;
+
+    echo "==================" >> result
+    echo "test" $i:  >> result
+    echo "student:" >> result
+     ./a.exe < ./testfiles/t$i >> result
+    echo "" >>result
+    echo "grader:" >> result
+     cat ./testfiles/o$i >> result
+    echo "" >> result
+done
+
+echo " SCORE: $j / 5";
+
+ELAPSED_TIME=$(($SECONDS - $START_TIME))
+echo "Elapsed time (sec): $ELAPSED_TIME"
+
+rm tempresult1
+rm tempcnt
+
