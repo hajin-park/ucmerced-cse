@@ -1,0 +1,110 @@
+TPS 1
+
+1. Before we use a new tool, we will need to find out how to use it. MARS DOES NOT mean that MIPS 
+is an alien language (well, sort of). Work with your partner and find out what MARS stands for. 
+---
+MARS stands for the MIPS Assembly Runtime Simulator
+https://courses.missouristate.edu/KenVollmar/MARS/Help/MarsHelpIntro.html
+
+2. Since you have found out what MARS stands for, you probably have found out the webpage of MARS 
+as well. Visit the download page and download MARS in your computer. To run MARS, just double-
+click the downloaded jar file. You will need Java to run it. Note: MARS is not pre-installed in the lab 
+computers, so you need to download it if you are using a lab computer. But before running the jar file 
+you will have to mark the file as user-executable. To do this, navigate to the folder where you have 
+downloaded the jar file and run the command chmod u+x Mars4_5.jar. After this, you may 
+double-click the jar file to run it. 
+---
+Downloaded from the site below.
+https://courses.missouristate.edu/KenVollmar/MARS/download.htm
+
+3. From the Tutorial materials page (you can find the link to it from the home page), save both tutorial 
+materials (MARS feature map and MARS tutorial) as well as Fibonacci.asm  
+---
+File "Fibonacci.asm"
+File "MARS features.doc"
+File "MARS Tutorial.doc"
+
+4. Download and save myFirstExample.s from the assignment page in your Lab_5 folder (both .asm 
+and .s file extensions are equivalent). 
+---
+File "myFirstExample.s"
+
+5. Follow Part 1 : Basic MARS Use in the tutorial using Fibonacci.asm and discuss the following 
+questions: 
+a. How do you load an assembly file?
+---
+Use either the menubar's "File->Open" or the "File Open" icon and select the assembly file from your directory.
+
+b. How do you assemble (compile) the program?
+---
+Use either the menubar's "Run->Assemble" or the "Assemble" icon to compile the loaded assembly program.
+
+c. How do you run the assembled program?
+---
+Click the green arrow in the icon bar to run the program to completion. Click the green arrow with a subscript 1 to
+run the program in steps of 1 line.
+
+d. Can you run a program before assembling it?
+---
+No, on MARS the "Run" icons are disabled before compiling the program.
+
+e. If you want to run the assembled program line by line, how to do it? 
+---
+Click the green arrow with a subscript 1 to run the program in steps of 1 line.
+
+f. How do you run the program again after it has finished running?
+---
+Click the green double left icon to reset the program and then click the green right arrow "Run" icon.
+
+6. Now load, understand, discuss, and run myFirstExample.s
+---
+I loaded "Fibonacci.acm" into MARS. I assembled the program by clicking the "Assemble". I can now see the "execute" page
+showing the assembly machine code instructions. Running the program using the green arrow icon produces the correct output
+in the output console at the bottom.
+
+TPS 2
+
+1. What do the .data, .word, .text directives mean (i.e., what do you put in each section)?  
+---
+The .data section is a space for declaring and initializing variables and data that will be used later in the program.
+The .word section is used within .data to declare and initialize word (4 bytes) variables. In fib.s a word is initialized
+with the value 13.
+The .text section is the section that contains the assembly instructions that will be executed by the CPU.
+
+2. What does line 10 do? 
+---
+Line 10 defines the start of the label "fib". This line contains a "beq" instruction which will branch the program to the
+"finish" label if the values in $t3 and $0 are equal. 
+
+3. What does line 15 do? 
+---
+Line 15 defines a "jump" instruction which will branch the program back to the beginning of the "fib" label, behaving as a
+recursive function.
+
+4. How do you set a breakpoint in MARS? Set breakpoint on line 15 and list the steps of achieving this. 
+---
+Set a breakpoint in MARS by switching to the "execution" page of the compiled program. Then in the "Text Segment" window
+check the box of any assembly instruction line on the left hand side. Any lined that is checked will have a breakpoint
+set. The running program will pause at each breakpoint.
+
+5. After your program stops because of a breakpoint, how do you continue to execute your code? How do 
+you step through your code? 
+---
+To continue to execute your code, click the green right arrow icons. Click the arrow icon with a subscript 1 to step
+through the code one line at a time.
+
+6. How can you find out the content of a register? How do you modify the value of a register manually 
+while running the program?  
+---
+You can find the content of registers using the window on the right side of the MARS program in the "Registers" tab.
+You can modify values manually by clicking and altering a register's "Value" box.
+
+7. At what address is n stored in memory? Calculate the 13th fib number by modifying this memory 
+location. 
+---
+n is stored in address 0x100100000. Changing the value to 10 outputs 55.
+
+8. Line 19 and 21 use the syscall instruction. What is it and how do you use it?
+---
+syscall executes a system instruction determined by the value held in $v0. In our program $v0 holds the value 1 which
+prints an int to the console. Next $v0 holds the value 10 which exits the program.
