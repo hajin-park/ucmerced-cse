@@ -1,14 +1,12 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <string.h>
 
 
 int main() {
-    int ar[10], *p, *q, sum = 0;
-
-    p = &ar[0]; q = &ar[10];
-    while (p != q) {
-        printf("%d\n", *p);
-        sum += *p++;
-        printf("%d\n", sum);
-    }
+    char charlist[] = "ABCDEFGH";
+    int* a;
+    a = charlist;
+    a[0] = 512;
+    printf("%x\n", charlist[1]);
 }
