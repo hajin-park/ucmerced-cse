@@ -3,7 +3,7 @@
 ---
 
 Open pull requests or issues to add contributions. Prepend additional
-directories/files with `{term}{year}_` i.e. `f23_` == Fall 2024, `sp2024_` ==
+directories/files with `{term}{year}_` i.e. `f23_` == Fall 2024, `sp24_` ==
 Spring 2024
 
 ---
