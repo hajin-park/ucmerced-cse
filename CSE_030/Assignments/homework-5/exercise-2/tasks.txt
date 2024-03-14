@@ -1,0 +1,8 @@
+3
+Alice
+125
+Bob
+103
+Cecilia
+77
+50

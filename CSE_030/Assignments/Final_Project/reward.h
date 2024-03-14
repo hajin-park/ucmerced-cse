@@ -3,6 +3,7 @@
 
 #include "GameState.h"
 
+
 int getReward(Vertex<GameState>* start, int player){
     if (start->neighbors.size() == 0){
         int currPlayer = start->data.currentTurn;

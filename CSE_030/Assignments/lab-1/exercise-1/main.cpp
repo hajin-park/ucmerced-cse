@@ -1,10 +1,13 @@
 #include <iostream>
-#include "GameManager.h"
+#include <string>
+#include "WordleHelper.h"
 
 using namespace std;
 
 int main(){
-    GameManager game;
-    game.start();
+
+    WordleHelper wh;
+
     return 0;
+
 }

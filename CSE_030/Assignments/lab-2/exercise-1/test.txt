@@ -1,0 +1,39 @@
+g++ -g -I. test.cpp -o test
+clear && echo "Running all tests:" && ./test --output=color
+[H[2JRunning all tests:
+.......FFFFFFFF
+[0;31mTestArrayList::TestPrependFive failed:
+Expected: equal to 5
+Actual: 0
+[0m
+[0;31mTestArrayList::TestPrependFour failed:
+Expected: equal to 4
+Actual: 0
+[0m
+[0;31mTestArrayList::TestPrependOne failed:
+Expected: equal to 1
+Actual: 0
+[0m
+[0;31mTestArrayList::TestPrependTwo failed:
+Expected: equal to 2
+Actual: 0
+[0m
+[0;31mTestArrayList::TestRemoveFirstFromFiveOnce failed:
+Expected: equal to 4
+Actual: 5
+[0m
+[0;31mTestArrayList::TestRemoveFirstFromFiveTwice failed:
+Expected: equal to 3
+Actual: 5
+[0m
+[0;31mTestArrayList::TestRemoveLastFromFiveOnce failed:
+Expected: equal to 4
+Actual: 5
+[0m
+[0;31mTestArrayList::TestRemoveLastFromFiveTwice failed:
+Expected: equal to 3
+Actual: 5
+[0m
+[0;31mTest run complete. 15 tests run:
+7 succeeded
+8 failed[0m
