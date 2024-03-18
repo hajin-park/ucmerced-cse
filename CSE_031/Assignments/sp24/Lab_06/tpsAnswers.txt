@@ -1,0 +1,64 @@
+TPS 1
+
+1. Once fib.s is assembled, open the Execute tab (it should be opened by default after assembled). Two 
+segments of memory are displayed here: Text Segment and Data Segment. What are the starting 
+addresses of Text Segment and Data Segment? Give your answers in Hex format.  
+---
+
+
+2. The Text Segment shows you how each actual machine code is stored in the memory (again it is 
+simulated) and its corresponding MIPS code. Two types of MIPS code are shown here: Basic and Source. 
+We call the Basic one True Assembly Language, and the Source one MIPS Assembly Language. 
+From the display, what can you tell about the difference between the two in terms of their relationship 
+with the machine code? We will cove this topic in future lectures.
+---
+
+
+3. Now, let us take a look at the Data Segment. How much difference in bytes are there between 2 address 
+locations (again, the addresses are in Hex)?
+---
+
+
+4. For each address location, how many columns are there?
+---
+
+
+5. What can you tell about the relationship between the address difference and the number of columns at 
+each address location?
+---
+
+
+6. From the source code, how do you create a new variable/label named m and set it to 20?
+---
+
+
+7. Save and assemble your file. At what address is the value of m stored?
+---
+
+
+8. Besides numbers, we can also initialize strings for the program to use. Search from the Internet on how 
+to declare a string named str1 and set it to “I love CSE31!”
+---
+
+
+9. Insert the declaration of str1 in your code and assemble it. From the Data Segment, we can see that 
+the string is occupying 3 address locations. At what addresses is str1 stored?
+---
+
+
+10. str1 is stored as numerical values in the memory. Check the ASCII box and observe how it is stored. 
+Does the display of characters agree with what you have learned from Lab 04 about how an array of 
+characters is stored?
+---
+
+
+11. In order to print str1, we will need to use syscall function. Search the Internet to find out how to 
+print str1.
+---
+
+
+12. Now let us go back to the program. Search from the Internet to find out what “la $t3, n” does. 
+What will be the value stored in $t3 after running this instruction? From this we can see that we cannot 
+use the initialized variables (labels) directly in our MIPS program. We need to use la, then lw to save 
+the value into a register
+---

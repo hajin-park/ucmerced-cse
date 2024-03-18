@@ -1,0 +1,41 @@
+#!/bin/bash
+
+if [ -f result ];
+  then
+  rm result
+fi
+j=0
+
+g++ -o verifier verifier.cpp
+
+for i in `seq 1 5`; do
+    if [ -f inputoutput ];
+    then
+      rm inputoutput;
+    fi
+    cat   ./testfiles/t$i >> inputoutput
+    ./a.exe < ./testfiles/t$i >> inputoutput
+    cat   ./testfiles/o$i >> inputoutput
+    ./verifier < inputoutput > tempcnt
+    rm inputoutput
+    echo "==================" >> result
+    echo "test" $i:  >> result
+    echo "student:" >> result
+     ./a.exe < ./testfiles/t$i >> result
+    echo "" >>result
+    echo "grader:" >> result
+     cat ./testfiles/o$i >> result
+    echo "" >> result
+
+    if [ -s tempcnt ] ; then
+      echo "  !!Incorrect for $i th example."
+    else
+      echo "  Correct for $i th example."
+      j=`expr $j + 1`
+    fi;
+done
+
+echo " SCORE: $j / 5";
+
+rm tempcnt
+
