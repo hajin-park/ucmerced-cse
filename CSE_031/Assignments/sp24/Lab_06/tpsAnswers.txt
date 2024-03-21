@@ -50,27 +50,102 @@ is 0x10010000, adding 4 bits to this address results in the address 0x10010004.
 8. Besides numbers, we can also initialize strings for the program to use. Search from the Internet on how 
 to declare a string named str1 and set it to “I love CSE31!”
 ---
-
+str1: .asciiz "I love CSE31!"
+Specify the name of the variable with "str1:"
+The ".asciiz" directive tells MIPS to read the following text as a string.
 
 
 9. Insert the declaration of str1 in your code and assemble it. From the Data Segment, we can see that 
 the string is occupying 3 address locations. At what addresses is str1 stored?
 ---
+0x10010008
+0x1001000C
+0x10010010
 
 
 10. str1 is stored as numerical values in the memory. Check the ASCII box and observe how it is stored. 
 Does the display of characters agree with what you have learned from Lab 04 about how an array of 
 characters is stored?
 ---
-
+Yes. It makes sense that the string "I love CSE31!" was split into chuncks of 4 characters since a word
+in MIPS stores 32 bits or 4 bytes where each character is 1 byte. The order of each individual character
+in each word is read right-to-left because it uses little-endianness.
 
 11. In order to print str1, we will need to use syscall function. Search the Internet to find out how to 
 print str1.
 ---
-
+"li $v0, 4"
+"la $a0, str1"
+"syscall"
+Load the print command into $v0, load the address of str1 containing the string into $a0, then print it.
 
 12. Now let us go back to the program. Search from the Internet to find out what “la $t3, n” does. 
 What will be the value stored in $t3 after running this instruction? From this we can see that we cannot 
 use the initialized variables (labels) directly in our MIPS program. We need to use la, then lw to save 
 the value into a register
+---
+"la" stands for "load address". This loads the address of the argument "n" into the register "$t3". "n"
+was defined in the .data directive as a word containing the value 13.
+
+
+TPS 2
+
+1. From lectures, we have learned that we can perform different inequality comparisons (<, >, <=, >=) by 
+using only slt, beq, and bne instructions. Why not having one instruction for each inequality in 
+MIPS?
+---
+
+
+
+2. Declare a new variable/label (n) and set it to 25.
+---
+
+
+
+3. Insert instructions to declare the following strings:
+a. str1: "Less than\n" 
+---
+
+
+
+b. str2: "Less than or equal to\n"
+---
+
+
+
+c. str3: "Greater than\n"
+---
+
+
+
+d. str4: "Greater than or equal to\n"
+---
+
+
+
+4. Insert instructions to read in an integer from users. Search from the Internet on how to use syscall to 
+do it.
+---
+
+
+
+5. Insert code so the program will compare if the user input is less than n. If it is, output “Less than”.
+---
+
+
+
+6. Insert code so the program will compare if the user input is greater than or equal to n. If it is, output 
+“Greater than or equal to”.
+---
+
+
+
+7. Now comment out your code from steps 5 and 6. Insert code so the program will compare if the user 
+input is greater than n. If it is, output “Greater than”.
+---
+
+
+
+8. Insert code so the program will compare if the user input is less than or equal to n. If it is, output “Less 
+than or equal to”.
 ---

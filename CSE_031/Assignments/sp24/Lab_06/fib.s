@@ -19,6 +19,9 @@ fib: 	beq     $t3, $0, finish
 finish: addi    $a0, $t0, 0
 		li      $v0, 1		# you will be asked about the purpose of this line for syscall 
 		syscall			
-		li      $v0, 10		
-		syscall			
+		li $v0, 4
+		la $a0, str1
+		syscall	
+		li $v0, 10		
+		syscall
 
