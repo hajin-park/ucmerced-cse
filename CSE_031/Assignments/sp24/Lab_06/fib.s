@@ -1,6 +1,6 @@
 .data
 n:      .word 13
-m:	.word 20
+m:	    .word 20
 str1: .asciiz "I love CSE31!"
 
 .text

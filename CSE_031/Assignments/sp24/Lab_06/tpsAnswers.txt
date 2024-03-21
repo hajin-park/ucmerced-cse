@@ -94,58 +94,84 @@ TPS 2
 using only slt, beq, and bne instructions. Why not having one instruction for each inequality in 
 MIPS?
 ---
-
+MIPS has a reduced set of instructions meant to simplify developer experience and improve execution efficiency.
 
 
 2. Declare a new variable/label (n) and set it to 25.
 ---
-
+"n: .word 25"
+set "n:" as the label n. Use the .word directive to set n to a 4-byte value. Store 25 into n.
 
 
 3. Insert instructions to declare the following strings:
 a. str1: "Less than\n" 
 ---
-
+str1: .asciiz "Less than\n"
 
 
 b. str2: "Less than or equal to\n"
 ---
-
+str2: 	.asciiz "Less than or equal to\n"
 
 
 c. str3: "Greater than\n"
 ---
-
+str3: 	.asciiz "Greater than\n"
 
 
 d. str4: "Greater than or equal to\n"
 ---
-
+str4: 	.asciiz "Greater than or equal to\n"
 
 
 4. Insert instructions to read in an integer from users. Search from the Internet on how to use syscall to 
 do it.
 ---
-
+li $v0, 5
+syscall
+move $s0, $v0
 
 
 5. Insert code so the program will compare if the user input is less than n. If it is, output “Less than”.
 ---
-
-
+slt $t1, $s0, $t0
+bne $t1, $zero, PrintLT
+PrintLT:
+	li $v0, 4
+	la $a0, str1
+	syscall
+	j After
 
 6. Insert code so the program will compare if the user input is greater than or equal to n. If it is, output 
 “Greater than or equal to”.
 ---
-
-
+slt $t1, $t0, $s0
+bne $t1, $zero, PrintGT	
+PrintGT:
+	li $v0, 4
+	la $a0, str3
+	syscall
+	j After
 
 7. Now comment out your code from steps 5 and 6. Insert code so the program will compare if the user 
 input is greater than n. If it is, output “Greater than”.
 ---
-
+slt $t1, $t0, $s0
+beq $t1, $zero, PrintLTE
+PrintLTE:
+	li $v0, 4
+	la $a0, str2
+	syscall
+	j After
 
 
 8. Insert code so the program will compare if the user input is less than or equal to n. If it is, output “Less 
 than or equal to”.
 ---
+slt $t1, $s0, $t0
+beq $t1, $zero, PrintGTE
+PrintGTE:
+	li $v0, 4
+	la $a0, str4
+	syscall
+	j After

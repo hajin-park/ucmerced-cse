@@ -1,0 +1,125 @@
+TPS 1
+
+1. Perform a search on the Internet on the difference(s) between the terms procedures, functions, and 
+methods.
+---
+Procedure - has no return value
+Function - can have a return value
+Method - functions internal to classes/objects
+
+
+2. As we have learned in lectures, our compiled program is stored in the static part of the memory when it 
+is being executed. When the CPU runs a program, it executes the statements according to the statement 
+order (line numbers). Unless there is a branch (beq/bne) or jump (j/jal) statement, it will just 
+execute the next statement.
+---
+
+
+
+3. Load proc1.s in MARS and study the MIPS program without assembling and running it. Write an 
+equivalent program in C and name it proc1.c. You can treat m and n as variables declared in main.
+---
+
+
+
+4. In proc1.s, we use j SUM to ask the CPU to jump to the line with the label SUM and continue 
+running the program from there. What line number is this (i.e., the line number pointed to by label 
+SUM)? What does this line do?
+---
+Line 20
+
+
+5. After function SUM is over, the program is supposed to return to the line after j SUM. In the code, jr 
+$ra is used. Can we use j instead (assuming we can create a label for that line)? 
+---
+
+
+
+6. Since the return address keeps changing depending on where SUM is called, we need to save the return 
+address before SUM is called. At what line in proc1.s is the return address supposed to be saved? In 
+what register is the address saved to? What is the value of address being saved here? Does this address 
+value make sense?
+---
+Invalid program counter value at address 0
+
+
+7. Assemble the code and open the Execute tab. Here the program is listed in the Text Segment (as we have 
+seen this in last lab). What happens when you try to run the program? This error is due to the invalid 
+return address (program counter tells the CPU where to look for a statement).
+---
+
+
+
+8. Now, let us correct the return address value. From the Text Segment window, what is the address of the 
+statement that the program should return to from SUM?
+---
+
+
+
+9. Modify the code so the correct return address is saved. Assemble it and look at the Text Segment again. 
+(DO NOT execute it yet!) Double check the return address. Is it correct? What happened? You will 
+know more about what happened here in later lectures.
+---
+
+
+
+10. What is the new return address? Modify your code, assemble, and run the program. What is the output 
+of the program?
+---
+
+
+
+11. As you can see, saving the correct return address before each procedure call is tedious. It would be nice 
+if the assembler can do it for us! Instead of using j to call a procedure, what operator should we use? 
+---
+
+
+
+12. Modify the code so you do not use j to call SUM. Make sure to comment out the line where the 
+return address is saved (with your modifications from earlier steps).
+---
+
+
+
+TPS 2
+
+1. Study proc2.c and trace the program. What will be the output if you run the program? Compile and 
+run proc2.c in a terminal (or any IDE) and verify your answer.
+---
+
+
+
+2. Load proc2.s in MARS. This is the MIPS version of proc2.c. Do not assemble and run this 
+program, as there are errors due to the misuse of registers. Study the MAIN function and discuss with 
+your partners about what it does (compare it with the C version).
+---
+
+
+
+3. When MAIN calls SUM, SUM knows where to return to. Why? After SUM called SUB, what happens to the 
+address returning to MAIN? Discuss with your partners about how you would resolve this problem.  Do 
+not attempt to fix it yet, as we have more problems to come.
+---
+
+
+
+4. The input argument (n) in function SUM is used to call the next function, SUB, as well as being added to 
+the return value. According to the register convention, the first argument of all function calls must be 
+stored in $a0. From line 27 of proc2.s, the value in $a0 is no longer the same as the input argument 
+of SUM (it has been changed to store input argument of SUB). We can resolve this problem by saving the 
+original $a0 into a temporary register, but we may eventually run out of registers if our program is large. 
+Discuss with your partners about how you would resolve this problem. Do not attempt to fix it yet.
+---
+
+
+
+5. Have a look at line 24. What happens to the original value in $s0 from MAIN after this statement is 
+executed? Is this a problem? Why? Discuss with your partners about how you would fix this problem. 
+Do not attempt to fix it yet.
+---
+
+
+
+6. Now we know that SUM needs to backup 3 values before calling SUB. Insert prologue and epilogue into 
+the code so the program will run correctly. (Hint: study function SUB, as it does not contain any errors)
+---
