@@ -13,26 +13,26 @@ is being executed. When the CPU runs a program, it executes the statements accor
 order (line numbers). Unless there is a branch (beq/bne) or jump (j/jal) statement, it will just 
 execute the next statement.
 ---
-
+N/A
 
 
 3. Load proc1.s in MARS and study the MIPS program without assembling and running it. Write an 
 equivalent program in C and name it proc1.c. You can treat m and n as variables declared in main.
 ---
-
+Done
 
 
 4. In proc1.s, we use j SUM to ask the CPU to jump to the line with the label SUM and continue 
 running the program from there. What line number is this (i.e., the line number pointed to by label 
 SUM)? What does this line do?
 ---
-Line 20
+Line 20 has the label "SUM" which adds the values in $a0 and $a1 and stores it into $v0.
 
 
 5. After function SUM is over, the program is supposed to return to the line after j SUM. In the code, jr 
 $ra is used. Can we use j instead (assuming we can create a label for that line)? 
 ---
-
+Yes, creating a label at the correct place and jumping to that label effectively does the same thing.
 
 
 6. Since the return address keeps changing depending on where SUM is called, we need to save the return 
@@ -40,45 +40,46 @@ address before SUM is called. At what line in proc1.s is the return address supp
 what register is the address saved to? What is the value of address being saved here? Does this address 
 value make sense?
 ---
-Invalid program counter value at address 0
+The address is currently being saved in the register $ra with a value of 0. This does not make sense
+since the address of the line after the j SUM command is definitely not 0.
 
 
 7. Assemble the code and open the Execute tab. Here the program is listed in the Text Segment (as we have 
 seen this in last lab). What happens when you try to run the program? This error is due to the invalid 
 return address (program counter tells the CPU where to look for a statement).
 ---
-
+"Error in : invalid program counter value: 0x00000000"
 
 
 8. Now, let us correct the return address value. From the Text Segment window, what is the address of the 
 statement that the program should return to from SUM?
 ---
-
+The correct address is "4194346"
 
 
 9. Modify the code so the correct return address is saved. Assemble it and look at the Text Segment again. 
 (DO NOT execute it yet!) Double check the return address. Is it correct? What happened? You will 
 know more about what happened here in later lectures.
 ---
-
+No, the address changed to "4194344", 2 less than the original address.
 
 
 10. What is the new return address? Modify your code, assemble, and run the program. What is the output 
 of the program?
 ---
-
+The new address is "4194344". The output correctly shows 15.
 
 
 11. As you can see, saving the correct return address before each procedure call is tedious. It would be nice 
 if the assembler can do it for us! Instead of using j to call a procedure, what operator should we use? 
 ---
-
+Use "jal" jump-and-load instead. This command stores the address of the following line in $ra.
 
 
 12. Modify the code so you do not use j to call SUM. Make sure to comment out the line where the 
 return address is saved (with your modifications from earlier steps).
 ---
-
+"jal SUM"
 
 
 TPS 2
@@ -86,21 +87,24 @@ TPS 2
 1. Study proc2.c and trace the program. What will be the output if you run the program? Compile and 
 run proc2.c in a terminal (or any IDE) and verify your answer.
 ---
-
+The program sums y + x + sum(x) which is 10 + 5 + 23 so the output should be 38. This was correct.
 
 
 2. Load proc2.s in MARS. This is the MIPS version of proc2.c. Do not assemble and run this 
 program, as there are errors due to the misuse of registers. Study the MAIN function and discuss with 
 your partners about what it does (compare it with the C version).
 ---
-
+This program does the same thing as the proc2.c program except for its register misuse. There are two
+subroutines SUM and SUB set up below main which are called throughout the program. x and y are initialized
+from the variables defined in the .data directive. m and b are initialized in sum and sub as well.
 
 
 3. When MAIN calls SUM, SUM knows where to return to. Why? After SUM called SUB, what happens to the 
 address returning to MAIN? Discuss with your partners about how you would resolve this problem.  Do 
 not attempt to fix it yet, as we have more problems to come.
 ---
-
+The first address in $ra located in the main function is overwritten with an address in the SUM function.
+I might attempt to fix this by using multiple registers to store addresses like a stack to prevent this.
 
 
 4. The input argument (n) in function SUM is used to call the next function, SUB, as well as being added to 
@@ -110,16 +114,19 @@ of SUM (it has been changed to store input argument of SUB). We can resolve this
 original $a0 into a temporary register, but we may eventually run out of registers if our program is large. 
 Discuss with your partners about how you would resolve this problem. Do not attempt to fix it yet.
 ---
-
+I might attempt to resolve this issue by instead using the stack pointer $sp to store my arguments rather
+than use the static $a# registers because we have calls to multiple functions.
 
 
 5. Have a look at line 24. What happens to the original value in $s0 from MAIN after this statement is 
 executed? Is this a problem? Why? Discuss with your partners about how you would fix this problem. 
 Do not attempt to fix it yet.
 ---
-
+The original value in $s0 holding the value of x is overwritten with the value of m. This is a problem because
+the program still needs the value of x later in the program but the only connection to it has been lost.
 
 
 6. Now we know that SUM needs to backup 3 values before calling SUB. Insert prologue and epilogue into 
 the code so the program will run correctly. (Hint: study function SUB, as it does not contain any errors)
 ---
+Done
