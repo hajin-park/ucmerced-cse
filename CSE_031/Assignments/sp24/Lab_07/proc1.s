@@ -8,8 +8,8 @@ MAIN:	la $t0, m		# Load address of m
 	la $t0, n			# Load address of n
 	lw $a1, 0($t0)		# a1 = n
 
-	addi $ra,$zero, 0	# Replace 0 with a correct return address 
-	j SUM
+	# addi $ra,$zero, 4194344	# Replace 0 with a correct return address 
+	jal SUM
 	
 	addi $a0, $v0, 0	# Print out result
 	li $v0, 1		 
