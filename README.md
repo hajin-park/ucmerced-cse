@@ -1,4 +1,4 @@
-# Computer Science and Engineering Curriculum at University of California, Merced
+# Computer Science and Engineering at University of California, Merced
 
 ---
 
