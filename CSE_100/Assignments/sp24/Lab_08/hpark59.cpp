@@ -1,77 +1,48 @@
 #include <iostream>
+#include <limits>
 
 using namespace std;
 
 
-int MemoizedCutRodAux(int* p, int n, int* r) {
-  if (r[n] >= 0) {
-    return r[n];
-  }
-  int q;
-  if (n == 0) {
-    q = 0;
-  } else {
-    q = -1;
-    for (int i = 1; i <= n; i++) {
-      q = max(q, p[i] + MemoizedCutRodAux(p, n - i, r));
+int** extended_bottom_up_cut_rod(int p[], int n) {
+    int* r = new int[n+1];
+    int* s = new int[n+1];
+    int q;
+    r[0] = 0;
+
+    for (int j = 1; j <= n; j++) {
+        q = numeric_limits<int>::min();
+
+        for (int i = 1; i <= j; i++) {
+            if (q < p[i-1] + r[j-i]) {
+                q = p[i-1] + r[j-i];
+                s[j] = i;
+            }
+        }
+
+        r[j] = q;
     }
-  }
-  r[n] = q;
-  return q;
+
+    int** f = new int*[2] {r, s};
+    
+    free(r);
+    free(s);
+    cout << "TEST" << '\n';
+
+    return f;
 }
 
-int MemoizedCutRod(int* p, int n) {
-  int* r = new int[n + 1];
-  for (int i = 0; i <= n; i++) {
-    r[i] = -1;
-  }
-  return MemoizedCutRodAux(p, n, r);
-}
+void print_cut_rod_solution(int p[], int n) {
+    int** f = extended_bottom_up_cut_rod(p, n);
 
-int ExtendedBottomUpCutRod(int* p, int n) {
-  int* r = new int[n + 1];
-  int* s = new int[n + 1];
-  r[0] = 0;
-  for (int j = 1; j <= n; j++) {
-    int q = -1;
-    for (int i = 1; i <= j; i++) {
-      if (q < p[i] + r[j - i]) {
-        q = p[i] + r[j - i];
-        s[j] = i;
-      }
+    cout << f[0][n] << '\n';
+    while (n > 0) {
+        cout << f[1][n] << " ";
+        n = n - f[1][n];
     }
-    r[j] = q;
-  }
-  int result = r[n];
-  delete[] r;
-  delete[] s;
-  return result;
-}
+    cout << "-1";
 
-void PrintCutRodSolution(int* p, int n) {
-  int* r = new int[n + 1];
-  int* s = new int[n + 1];
-  r[0] = 0;
-  
-  for (int j = 1; j <= n; j++) {
-    int q = -1;
-    for (int i = 1; i <= j; i++) {
-      if (q < p[i] + r[j - i]) {
-        q = p[i] + r[j - i];
-        s[j] = i;
-      }
-    }
-    r[j] = q;
-  }
-
-  while (n > 0) {
-    cout << s[n] << " ";
-    n = n - s[n];
-  }
-  cout << "-1" << endl;
-
-  delete[] r;
-  delete[] s;
+    free(f);
 }
 
 int main(int argc, char** argv) {
@@ -83,8 +54,7 @@ int main(int argc, char** argv) {
       cin >> p[i];
     }
 
-    cout << MemoizedCutRod(p, n) << endl;
-    PrintCutRodSolution(p, n);
+    print_cut_rod_solution(p, n);
 
     return 1;
 }

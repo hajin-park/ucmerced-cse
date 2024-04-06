@@ -1,8 +1,6 @@
 ==================
 test 1:
 student:
-18
-1 6 -1
 
 grader:
 18
@@ -11,8 +9,6 @@ grader:
 ==================
 test 2:
 student:
-30
-10 -1
 
 grader:
 30
@@ -21,8 +17,6 @@ grader:
 ==================
 test 3:
 student:
-10
-2 2 -1
 
 grader:
 10
@@ -31,8 +25,6 @@ grader:
 ==================
 test 4:
 student:
-69
-20 -1
 
 grader:
 69
@@ -41,8 +33,6 @@ grader:
 ==================
 test 5:
 student:
-70
-1 20 -1
 
 grader:
 70
