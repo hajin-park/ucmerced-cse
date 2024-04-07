@@ -1,4 +1,4 @@
-#include<stdio.h>
+#include <stdio.h>
 
 int recursion(int m) {
     if(m == -1) {
