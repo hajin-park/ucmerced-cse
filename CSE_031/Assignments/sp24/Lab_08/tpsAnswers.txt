@@ -63,21 +63,24 @@ to the recursion function. It does not ask for any input or initialize any value
 3. Since the recursion.c prompts to a user for input, insert instructions in recursion.s so the 
 program will prompt the same statement to a user.
 ---
-inputPrompt:	.asciiz "Please enter an integer: "
-# Load prompt into $a0
-la $a0, inputPrompt	
-# Print prompt in $a0
-li $v0, 4
-syscall
+    inputPrompt:	.asciiz "Please enter an integer: "
+    # Load prompt into $a0
+    la $a0, inputPrompt	
+    # Print prompt in $a0
+    li $v0, 4
+    syscall
 
 4. Insert statements for the program to read in a value from a user. What register should we use to store 
 that value? (Hint: you will use it as the argument for your recursion function call.)
 ---
-I will store the user input in register $a0
-# Get user input
-li $v0, 5
-syscall
-move $a0, $v0
+I disagree with this question and the starting code. According to the MIPS Calling Convention, the main
+function's stack frame needs 4 words for its argument section. I will save the user input in $s0 as a saved variable
+and then copy it into $a0 as the first argument in recursion. I will update the main function's stack pointer
+to fit 4 words instead of 1 as well.
+    # Get user input
+    li $v0, 5
+    syscall
+    move $a0, $v0
 
 5. Next, the main function calls recursion with the correct input argument. After returning from 
 recursion, we need to print out the returned value. What register do we expect the returned value to 
@@ -91,52 +94,72 @@ This is also convienent since the value in $a0 will be printed out anyways.
 6. Based on your answer from step 5, insert the correct instructions to print out the returned value before 
 jumping to the end of program.
 ---
-addu $a0, $zero, $v0
-li $v0, 1		 
-syscall
+    addu $a0, $zero, $v0
+    li $v0, 1		 
+    syscall
 
 7. Now, let us complete the recursion function. The stack pointer was moved to create extra storage 
 for the function. How many integer values are reserved in this storage? What is the first thing to be 
 stored in this stack frame? Insert a statement to accomplish this.
 ---
-
+First push 4 words onto the stack frame for the Argument Section.
+Next push 1  word onto the stack frame for the Saved Registers section (x in $s0).
+Next push 1 word onto the stack frame for $ra.
+Next push 1 word onto the stack frame for local data in $s1.
+Next push 1 word onto the stack frame for Padding.
+	sw $s0, 16($sp) # Push saved register to stack frame
+	sw $ra, 20($sp)	# Push $ra to stack frame
+	sw $s1, 24($sp)	# Push local variable to stack frame
+	sw $a0, 32($sp) # Push $a0 to caller's Argument stack section
 
 8. Based on the branch statement under label recursion, update the returning value. Again, you must 
 use the correct register to store the returning value.
 ---
-
+    la $a0, returnOnePrompt
+	li $v0, 4
+	syscall
+	addiu $v0, $zero, 1	# Return 1
 
 9. Based on the branch statement under label not_minus_one, update the returning value. Again, you 
 must use the correct register to store the returning value.
 ---
-
+	la $a0, returnThreePrompt
+	li $v0, 4
+	syscall
+	addiu $v0, $zero, 3	# Return 3
 
 10. When the input argument is not 0 or -1, the program will call recursion 2 times. This happens in the 
 code under label not_zero. Why do we need to save $a0 into the stack?
 ---
-
+$a0 needs to be saved into the stack into order to preserve its value after the subprocedures have finished.
+If there are more nested subprocedures, the current subprocedure's $a0 value will end up at a new arbitrary
+value below its original one.
 
 11. Insert a statement to update the input argument for the next recursion call.
 ---
-
+	lw $a0, 32($sp)		# Restore $a0 from caller's Argument stack section
+	subiu $a0, $a0, 2	# m - 1
 
 12. After returning from the last recursion, the program is about to call the next recursion. However, 
 the last recursion came back with a returned value. What will happen to if we call recursion right 
 away? Insert statements to prevent this from happening.
 ---
-
+Calling recursion right away will overwrite the previous recursions return value.
+	addu $s1, $v0, $zero	# recursion(m - 2)
 
 13. Now the program is ready to call recursion again. Insert statements to update the next input 
 argument.
 ---
-
+	lw $a0, 32($sp)		# Restore $a0 from caller's Argument stack section
+	subiu $a0, $a0, 1	# m - 1
 
 14. After returning from the second recursion call, insert statements to update the final value to be 
 returned to main.
 ---
-
+	addu $v0, $v0, $s1	# recursion(m - 1)
 
 15. Before returning to main, a value needs to be retrieved so the program can return to the correct 
 location of the code. What is this value? Insert a statement under the label end_recur to retrieve this 
 value
 ---
+	lw $ra, 20($sp)		# Restore $ra from stack frame
