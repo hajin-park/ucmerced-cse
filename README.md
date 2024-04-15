@@ -1,6 +1,8 @@
 # Computer Science and Engineering at University of California, Merced
 
 ---
+No cheating allowed.
+
 
 Open pull requests or issues to add contributions. Prepend additional
 directories/files with `{term}{year}_` i.e. `f23_` == Fall 2024, `sp24_` ==
