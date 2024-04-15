@@ -3,27 +3,31 @@ TPS 1
 1. Download “MIPS_Reference_Sheet” from CatCourses. We will need to refer to this sheet to 
 complete all the exercises in this lab.
 ---
-
+Done
 
 2. Load proc1.s in MARS and study the code. This is similar to compare.s from Lab 06.
 ---
-
+Done
 
 3. After assembling the program, study the Text Segment window and see how your source code is 
 translated into True Assembly Language (Basic) as well as machine code (Code).
 ---
-
+Done
 
 4. In true assembly language, every single instruction can be translated into a machine instruction. How 
 many bits does a machine instruction contain?
 ---
-
+Each machine instruction contains 32 bits. MARS shows the machine code in hexadecimal format with 8 digits.
+This represents 8 x 4 = 32 digits in bit format.
 
 5. To utilize the limited number of bits efficiently, all machine instructions are categorized into different 
 types (or formats). How many types are there? What are they? Give 2 operations for each type as 
 examples.
 ---
-
+There are three different types of machine instructions: R-type, I-type, and J-type.
+R-type: add, sub
+I-type: lw, sw
+J-type: j, jal
 
 6. Now, locate the instruction in line #7 of proc1.s. Let us translate this instruction into machine code.  
 a. What instruction type is this? How many fields does this type of instruction have? What are the

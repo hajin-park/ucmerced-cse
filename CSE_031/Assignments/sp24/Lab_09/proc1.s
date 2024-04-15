@@ -1,4 +1,4 @@
-        .data
+ 	.data
 str1: .asciiz "Less than\n"
 str2: .asciiz "Greater than or equal to\n"
 
