@@ -3,17 +3,6 @@
 
 using namespace std;
 
-// The input consists of 6 integers, one per each line. Each
-// integer represents the frequency of characters, A, B, C, D, E, and F, in this order. The test cases
-// have been built so that while building trees it never happens that the same frequency appears
-// twice. Then, the decision about which tree goes to the left and which one goes to the right is
-// always straightforward, and the final tree should be unique.
-
-
-// Create a Huffman Code algorithm using a min-heap
-// Finally, print the Huffman Code starting from A to F with its code, variable length.
-
-// Create a struct for the node
 struct Node {
     char data;
     int freq;
@@ -21,14 +10,12 @@ struct Node {
     Node* right;
 };
 
-// Create a struct for the min-heap
 struct MinHeap {
     int size;
     int capacity;
     Node** array;
 };
 
-// Create a new node
 Node* newNode(char data, int freq) {
     Node* temp = new Node();
     temp->left = temp->right = NULL;
@@ -37,7 +24,6 @@ Node* newNode(char data, int freq) {
     return temp;
 }
 
-// Create a new min-heap
 MinHeap* createMinHeap(int capacity) {
     MinHeap* minHeap = new MinHeap();
     minHeap->size = 0;
@@ -46,14 +32,12 @@ MinHeap* createMinHeap(int capacity) {
     return minHeap;
 }
 
-// Swap two nodes
 void swapNode(Node** a, Node** b) {
     Node* t = *a;
     *a = *b;
     *b = t;
 }
 
-// Heapify
 void minHeapify(MinHeap* minHeap, int idx) {
     int smallest = idx;
     int left = 2 * idx + 1;
@@ -78,7 +62,6 @@ int isSizeOne(MinHeap* minHeap) {
     return (minHeap->size == 1);
 }
 
-// Extract the minimum node from the heap
 Node* extractMin(MinHeap* minHeap) {
     Node* temp = minHeap->array[0];
     minHeap->array[0] = minHeap->array[minHeap->size - 1];
@@ -87,7 +70,6 @@ Node* extractMin(MinHeap* minHeap) {
     return temp;
 }
 
-// Insert a new node into the heap
 void insertMinHeap(MinHeap* minHeap, Node* node) {
     ++minHeap->size;
     int i = minHeap->size - 1;
@@ -98,7 +80,6 @@ void insertMinHeap(MinHeap* minHeap, Node* node) {
     minHeap->array[i] = node;
 }
 
-// Build the min-heap
 void buildMinHeap(MinHeap* minHeap) {
     int n = minHeap->size - 1;
     int i;
@@ -155,7 +136,6 @@ void printHuffmanCodeStrings(string outputs[]) {
 
 }
 
-// Main function
 int main(int argc, char** argv) {
     int size = 6;
     int* arr = new int[size];
