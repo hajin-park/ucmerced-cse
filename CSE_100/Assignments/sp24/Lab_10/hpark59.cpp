@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -130,22 +131,28 @@ Node* buildHuffmanTree(char data[], int freq[], int size) {
     return extractMin(minHeap);
 }
 
-void printHuffmanCode(Node* root, int tree[], int top) {
+void createHuffmanCodeStrings(Node* root, int tree[], int top, string outputs[]) {
     if (root->left) {
         tree[top] = 0;
-        printHuffmanCode(root->left, tree, top + 1);
+        createHuffmanCodeStrings(root->left, tree, top + 1, outputs);
     }
     if (root->right) {
         tree[top] = 1;
-        printHuffmanCode(root->right, tree, top + 1);
+        createHuffmanCodeStrings(root->right, tree, top + 1, outputs);
     }
     if (isLeaf(root)) {
-        cout << root->data << ":";
+        int char_position = root->data - 'A';
         for (int i = 0; i < top; i++) {
-            cout << tree[i];
+            outputs[char_position] += to_string(tree[i]);
         }
-        cout << "\n";
     }
+}
+
+void printHuffmanCodeStrings(string outputs[]) {
+    for (int i = 0; i < 6; i++) {
+        cout << outputs[i] << "\n";
+    }
+
 }
 
 // Main function
@@ -158,8 +165,10 @@ int main(int argc, char** argv) {
     }
 
     char data[] = {'A', 'B', 'C', 'D', 'E', 'F'};
+    string outputs[] = {"A:", "B:", "C:", "D:", "E:", "F:"};
     Node* root = buildHuffmanTree(data, arr, size);
     int tree[100], top = 0;
-    printHuffmanCodeInOrder(root, tree, top);
+    createHuffmanCodeStrings(root, tree, top, outputs);
+    printHuffmanCodeStrings(outputs);
     return 0;
 }
