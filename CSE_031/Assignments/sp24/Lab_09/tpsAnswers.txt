@@ -33,44 +33,68 @@ J-type: j, jal
 a. What instruction type is this? How many fields does this type of instruction have? What are the
 names of these fields?
 ---
-
+MIPS code: addi $s0, $zero, 25
+Instruction type: I-type
+Number of fields: 4
+Field names: opcode, rs, rt, immediate
 
 b. Refer to the MIPS sheet, what is the value of the opcode of this instruction in hex? What register 
 is rs? What is the value of this register in hex? What register is rt? What is the value of this register 
 in hex? What is the value of immediate in hex?
 ---
-
+opcode of addi in hex: 8
+register rs: $zero aka $0
+value of $zero in hex: 0x0
+register rt: $s0
+value of $s0 in hex: 0x10
+value of immediate in hex: 0x19
 
 c. Construct the machine code of line #7 using the values obtained from part b. Write your answer in 
 both binary and hex formats. You can verify your answer with the Code column in Text Segment 
 window.
 ---
-
+machine code in binary: 0010 0000 0001 0000 0000 0000 0001 1001
+machine code in hex: 0x20100019
 
 7. Now, let us convert a machine code to a MIPS instruction. Locate address 0x00400010 from the Text 
 Segment window.
 a. What is the machine code at this address in hex? Convert this code into binary.
 ---
-
+address 0x00400010 in decimal: 4194320
+address 4194320: line 14 slt $t0, $s1, $s0
+machine code in hex: 0x0230402a
+machine code in binary: 0000 0010 0011 0000 0100 0000 0010 1010
 
 b. From the binary version of this machine code. What is the instruction type? How can you tell? How 
 many fields are there in this instruction type? What are the names of these fields?
 ---
-
+machine code in binary: 000000 10001 10000 01000 00000 101010
+The instruction type is R-type. I can tell this because the first 6 bits are all 0s.
+field names: opcode, rs, rt, rd, shamt, funct
 
 c. According to the binary machine code, what is the value of each field in hex?
 ---
-
+opcode in hex: 0x0
+rs in hex: 0x11
+rt in hex: 0x10
+rd in hex: 0x08
+shamt in hex: 0x0
+funct in hex: 0x2a
 
 d. Refer to the MIPS sheet, what operation is this instruction? How can you tell? What is the mapping 
 of the registers being used in this instruction?
 ---
-
+This instruction is the slt operation. I can tell because the funct field is 2a in hex which the MIPS
+Reference Sheet tells me is slt.
+rs = $s1
+rt = $s0
+rd = $t0
 
 e. What is the final MIPS instruction? Is it the same as the Source Column in the Text Segment 
 window?
 ---
-
+slt $t0, $s1, $s0
+This is the same as the Source Column in the Text Segment
 
 8. Now, let us take a look at line #17 of proc1.s.
 a. What format is this instruction?
