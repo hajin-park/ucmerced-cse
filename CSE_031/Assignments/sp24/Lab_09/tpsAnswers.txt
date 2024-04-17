@@ -77,7 +77,7 @@ c. According to the binary machine code, what is the value of each field in hex?
 opcode in hex: 0x0
 rs in hex: 0x11
 rt in hex: 0x10
-rd in hex: 0x08
+rd in hex: 0x8
 shamt in hex: 0x0
 funct in hex: 0x2a
 
@@ -99,49 +99,66 @@ This is the same as the Source Column in the Text Segment
 8. Now, let us take a look at line #17 of proc1.s.
 a. What format is this instruction?
 ---
-
+Line 17: bne $t0, $zero, LESS
+This instruction is an I-type instruction.
 
 b. What are the values of opcode, rs, and rt of this instruction in hex?
 ---
-
+opcode in hex: 0x5
+rs in hex: 0x8
+rt in hex: 0x0
 
 c. What is the name of the target label if it takes the branch? What is the address of this label in hex? 
 (Hint: you can find it in the Text Segment window.)
 ---
-
+The target label is called LESS. The address of LESS in hex is 0x40001C
 
 d. So, do we put this address as the value of the immediate field of the instruction? Why?
 ---
-
+No. The immediate stored as the target address is only 16 bits long, not the full 32-bit
+address. Instead, the immediate field stores the offset of the addresses between the next
+instruction and the target label.
 
 e. How do we find the value of the immediate field? What is this value?
 ---
-
+The value of the immediate field is the leftmost 16 bits of the 32-bit instruction.
+0000 0000 0000 0001 = 0x1
+The offset from the instruction after the branch to LESS is only 4 bytes. We can 
+calculate the address by appending 00 to the immediate field and then adding the
+address of PS + 4.
 
 f. What is the machine code of this instruction in binary and hex formats? Does your answer match 
 the Code column in the Text Segment window?
 ---
-
+machine code in binary: 0001 0101 0000 0000 0000 0000 0000 0001
+machine code in hex: 0x15000001
 
 9. Finally, let us convert the j instruction in line #20.
 a. What format is this instruction? How many fields are there in this format?
 ---
-
+This instruction is a J-type.
+This instruction has two fields, opcode and address.
 
 b. What is the opcode of this instruction in hex?
 ---
-
+opcode in hex: 0x2
 
 c. To what label and address does this instruction jump?
 ---
-
+The target label is GREQ at address 0x00400030
 
 d. How many bits can you use in the address field of the instruction? How can we “squeeze” the 
 address into this field? What are the reasons behind this approach? What is the value of the 
 address field in binary?
 ---
-
+The address field can hold 26 bits. We can squeeze the address into this field by removing
+the last two 0s as well as the first four bits, turning a 32-bit address into a 26-bit address.
+The compiler reconstructs the address by appending the two 0s again and then prepending the address
+with the first four bits of the PC, under the assumption that the jump distance is not too big.
+The value of the address field in binary is 0000 0100 0000 0000 0000 0011 00.
 
 e. What is the machine code of this instruction in binary and hex? Is it the same as what’s in the 
 Code Column of the Text Segment window?
 ---
+machine code in hex: 0x0810000c
+machine code in binary: 0000 1000 0001 0000 0000 0000 0000 1100
