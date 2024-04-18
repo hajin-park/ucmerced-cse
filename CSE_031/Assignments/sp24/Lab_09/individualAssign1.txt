@@ -1,14 +1,40 @@
 Line #7
 ---
-
+MIPS instruction: addi $s0, $zero, -15
+format: I-type
+opcode: 0x8, 001000
+rs: $zero, 0x0, 00000
+rt: $s0, 0x10, 10000
+immediate: -15, 1111 1111 1111 0001
+Machine code: 00100000000100001111111111110001, 0x2010fff1
 
 Line #14
 ---
-
+MIPS instruction: slt $t0, $s0, $s1
+format: R-type
+opcode: 0x0, 000000
+rs: $s0, 0x10, 10000
+rt: $s1, 0x11, 10001
+rd: $t0, 0x8, 01000
+shamt: 0x0, 00000
+funct: 0x2a, 101010
+Machine code: 00000010000100010100000000101010, 0x0211402a
 
 Line #17
 ---
-
+MIPS instruction: beq $t0, $zero, LEEQ
+format: I-type
+opcode: 0x4, 000100
+rs: $t0, 0x8, 01000
+rt: $zero, 0x0, 00000
+immediate: LEEQ, 0000000000000110
+Machine code: 00010001000000000000000000000100, 0x11000006
 
 Line #20
 ---
+MIPS instruction: j GRT
+format: J-type
+opcode: 0x2, 000010
+label: GRT, 4194332, 00000000010000000000000000011100
+immediate: 00000100000000000000000111
+Machine code: 00001000000100000000000000000110, 0x08100007
