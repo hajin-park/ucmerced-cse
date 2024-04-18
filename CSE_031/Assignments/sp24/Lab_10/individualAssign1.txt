@@ -1,0 +1,23 @@
+1. What is the full name of the processor you selected?
+===
+
+
+2. How many levels of caches does your CPU have (L1, L2, L3, etc.)? Is there a separate L1 cache for data 
+and instructions?
+===
+
+
+3. How big is each level of cache?
+===
+
+
+4. What is the block size (sometimes it is called line size)?
+===
+
+
+5. Are the caches direct-mapped or set associative? If set associative, how many ways?
+===
+
+
+6. With L1 data cache, how many tag bits, index bits, and offset bits?
+===

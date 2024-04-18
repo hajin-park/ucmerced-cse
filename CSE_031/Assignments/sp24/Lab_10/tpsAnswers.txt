@@ -1,0 +1,182 @@
+TPS 1
+
+1. What is cache? Why do we need cache?
+===
+A cache is a small on-chip memory utilized for its speed. Due to a variety of factors such as 
+resistance/capacitors and DRAM, using external memory may be slow for CPUs. A cache is usually
+built using SRAM.
+
+2. There are generally 2 practical ways to organize a cache: Direct-mapped cache and N-way set associative 
+cache. In both types of cache, data at a specific address of the main memory (RAM) are mapped to a 
+pre-defined location in the cache. A “Block” is the basic unit of data being mapped between the main 
+memory and cache. The size of a block depends on the specification of a cache. Every time data is 
+transferred between cache and the main memory, it is a block of data being transferred. In this 
+exercise, we will explore the Direct-mapped cache.
+===
+OK
+
+3. In a Direct-mapped cache, the cache is organized as a hash table. Addresses of the main memory are 
+mapped to the indices of the cache (block numbers) using a modulo operator (%) as the hash function. 
+As a result, we can divide a memory address into 3 fields: tag, index, offset.
+===
+OK
+
+4. Offset bits tell us how many bytes of data are in a block. These bits are the right-most bits of the 
+memory address. You can consider this as the number of columns of data in a cache. With a specific 
+value of the offset bits from an address, we know which column of a block we are trying to access. 
+Given the block size of a cache is 16B (bytes), how many bits do we need for offset? What is the 
+number of bits in offset as a function of block size? Is it practical to have a cache of block size = 1 byte?
+===
+A cache with a block size of 16 bytes has 16 columns of data which requires 16 offsets. This would require 4
+bits to count 16 offsets.
+The number of bits as a function of block size is Log_2(block size).
+It would not be very practical to have a block size of 1 as that would reduce the total memory capacity of the
+cache since each address can only hold 1 byte of data, and would not allow the cache to utilize spatial locality.
+
+5. Index bits tell us how many blocks there are in a cache. These bits are the next right-most bits of the 
+memory address after the offset bits. You can consider this as the number of blocks (rows) of data 
+in a cache. With a specific value of the index bits from an address, we know which block (row) we are 
+trying to access. Given there are 64 blocks in a cache, how many index bits do we need? What is the 
+number of bits in index as a function of number of blocks?
+===
+Given 64 blocks in a cache there would need to be 6 index bits. Like the offset bits, the number of index
+bits required is also determined by the function Log_2(number of blocks)
+
+6. Once you know the number of blocks and the block size of a cache, do you know the total size of the 
+cache? How? 
+===
+Yes. We can simply multiply the number of blocks by the size of each block to calculate the total size
+of the cache in units of bytes (unless stated otherwise).
+
+7. Since the size of cache is always smaller than the size of the main memory, the sum of bits of the offset 
+and index of a cache will be less than the number of bits in an address of the main memory. What do we 
+do to the left-over bits from the address? Why are they important?
+===
+The "leftover" bits become the "tag" bits for a particular block. In a cache, each block only uses one tag.
+Tags are significant because combining tag and index bits tells us which row in the cache to use. The offset
+bits tell us which column in the particular row to look at. Multiple memory addresses could share the same index
+so the additional tag bits are necessary to manage particular blocks of memory.
+
+8. Given a memory address of 20 bits (during Intel 8086 era), 128B of direct-mapped cache, and 8B 
+block size, answer the following questions:
+a. How big is this main memory?
+===
+The main memory has a size of 2^20 or 1,048,576 bytes, assuming each memory cell contains 1 byte of data.
+
+b. How many offset bits?
+===
+An 8-byte block requires 3 offset bits.
+
+c. How many blocks are there in the cache?
+===
+128B/8B = 16 total blocks.
+
+d. How many index bits?
+===
+16 blocks in the cache requires 4 index bits.
+
+e. How many tag bits?
+===
+20 - 3 - 4 = 13 tag bits.
+
+f. Draw the layout of the cache: including tags, valid bits, dirty bits, and data blocks.
+===
+Index   Block       Tag      Valid  Dirty
+     -------------------------------------
+00000|         |            |      |     |
+     |------------------------------------
+00001|         |            |      |     |
+     |------------------------------------
+00010|         |            |      |     |
+     |------------------------------------
+00011|         |            |      |     |
+     |------------------------------------
+00100|         |            |      |     |
+     -------------------------------------
+
+g. What is the number of bits per row of the cache (number of bits being used in a row: tag, valid bit, 
+dirty bits, and data block)?
+===
+tag = 13 bits
+valid = 1 bit
+dirty = 1 bit
+data = 64 bits
+13 + 1 + 1 + 64 = 79 bits per row
+
+TPS 2
+
+1. What is the disadvantage of a Direct-mapped cache? What kind of cache miss will it introduce?
+===
+A direct-mapped cache can introduce redundant conflict misses. This type of cache miss occurs when multiple
+data blocks from the main memory are mapped to the same cache line due to the use of the same index. If
+these blocks are frequently accessed, it can lead to a situation where the blocks continuously replace each
+other, reducing the effectiveness of the cache.
+
+2. To overcome this problem, we can allow multiple blocks of data to occupy the same set of a cache.
+Note that we use “set” here instead of index of cache. In this organization, we group N blocks (rows) of
+cache into a set and allow more than one block of data to stay within a set. The layout of the cache 
+remains the same as its direct-mapped version, but the difference is that every N blocks are now being 
+grouped into a set.
+===
+OK
+
+3. The memory address is still partitioned into the same 3 fields, but the index bits now refer to the set 
+number. Given a cache with 1024 blocks and the associativity is 4 (4 blocks per set), how many index 
+bits do we need? What is the number of bits in index as a function of number of blocks and 
+associativity?
+===
+1024/4 = 256 sets
+256 sets requires 8 index bits
+The number of index bits required is a function of Log_2(number of blocks/associativity)
+
+4. Given a memory address of 20 bits (during Intel 8086 era), 128B of 2-way cache, and 8B block size, 
+answer the following questions:
+a. How big is this main memory?
+===
+2^20 = 1,048,576 bytes (assuming each memory cell holds 1 byte of data)
+
+b. How many offset bits?
+===
+8-byte blocks require 3 offset bits. (Log_2(8) = 3)
+
+c. How many blocks are there in the cache?
+===
+128/8 = 16 blocks
+
+d. How many sets are there in the cache?
+===
+16 blocks/2 = 8 sets
+
+e. How many index bits?
+===
+8 sets requires 3 index bits (Log_2(8) = 3)
+
+f. How many tag bits?
+===
+20 - 3 - 3 = 14 tag bits.
+
+g. Draw the layout of the cache: including tags, valid bits, dirty bits, and data blocks. Indicate the sets 
+with a different color (or a thicker) boarder.
+===
+                    Block 1                              Block 2
+Index   Block       Tag      Valid  Dirty[]  Block       Tag      Valid  Dirty
+     ==========================================================================
+00000|         |            |      |     []         |            |      |     |
+     |=========================================================================
+00001|         |            |      |     []         |            |      |     |
+     |=========================================================================
+00010|         |            |      |     []         |            |      |     |
+     |=========================================================================
+00011|         |            |      |     []         |            |      |     |
+     |=========================================================================
+00100|         |            |      |     []         |            |      |     |
+     |=========================================================================
+
+h. What is the number of bits per row of the cache (number of bits being used in a row: tag, valid bit, 
+dirty bits, and data block)?
+===
+tag: 14 bits
+valid: 1 bit
+dirty: 1 bit
+data: 2 x 64 = 128 bits
+14 + 1 + 1 + 128 = 144 bits per row
