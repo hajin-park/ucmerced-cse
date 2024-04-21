@@ -1,0 +1,58 @@
+-------------------------------------------------------------------------------TEST RUN 1
+Enter the number of assignments (between 1 and 25): 1
+Enter score: 5
+Original scores: 5 
+Sorted scores (in descending order): 5 
+Enter the number of (lowest) scores to drop: 1
+Average (rounded down) with dropped scores removed: 0
+-- program is finished running --
+
+-------------------------------------------------------------------------------TEST RUN 2
+Enter the number of assignments (between 1 and 25): 4
+Enter score: 2
+Enter score: 4
+Enter score: 6
+Enter score: 8
+Original scores: 2 4 6 8 
+Sorted scores (in descending order): 8 6 4 2 
+Enter the number of (lowest) scores to drop: 2
+Average (rounded down) with dropped scores removed: 7
+-- program is finished running --
+
+-------------------------------------------------------------------------------TEST RUN 3
+Enter the number of assignments (between 1 and 25): 5
+Enter score: 1
+Enter score: 2
+Enter score: 3
+Enter score: 4
+Enter score: 5
+Original scores: 1 2 3 4 5 
+Sorted scores (in descending order): 5 4 3 2 1 
+Enter the number of (lowest) scores to drop: 1
+Average (rounded down) with dropped scores removed: 3
+-- program is finished running --
+
+-------------------------------------------------------------------------------TEST RUN 4
+Enter the number of assignments (between 1 and 25): 6
+Enter score: 23
+Enter score: 7
+Enter score: 346
+Enter score: 12
+Enter score: 87
+Enter score: 100
+Original scores: 23 7 346 12 87 100 
+Sorted scores (in descending order): 346 100 87 23 12 7 
+Enter the number of (lowest) scores to drop: 2
+Average (rounded down) with dropped scores removed: 139
+-- program is finished running --
+
+-------------------------------------------------------------------------------TEST RUN 5
+Enter the number of assignments (between 1 and 25): 3
+Enter score: 12
+Enter score: 6
+Enter score: 20
+Original scores: 12 6 20 
+Sorted scores (in descending order): 20 12 6 
+Enter the number of (lowest) scores to drop: 3
+Average (rounded down) with dropped scores removed: 0
+-- program is finished running --
